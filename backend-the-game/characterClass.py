@@ -1,6 +1,7 @@
-from flask import Flask
+from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+#from flask_mysqldb import MySQL
 import os
 
 characterClass = Flask(__name__)
@@ -41,6 +42,27 @@ class CharacterClassSchema(ma.Schema):
 character_class_schema = CharacterClassSchema()
 character_classes_schema = CharacterClassSchema(many=True)
 
+# Endpoint to create a new character
+@characterClass.route('/new-character', methods=["POST"])
+def add_new_character():
+    name = request.json['name']
+    klass = request.json['klass']
+    clain = request.json['clain']
+    hp = request.json['hp']
+    mp = request.json['mp']
+    defense = request.json['defense']
+    abilities = request.json['abilities']
+    attacks = request.json['attacks']
+
+    new_character = CharacterClass(name, klass, clain, hp, mp, defense, abilities, attacks)
+
+    db.session.add(new_character)
+    db.session.commit()
+
+    character = CharacterClass.query.get(new_character.id)
+
+    return character_class_schema.jsonify(character)
+
 
 if __name__ == '__main__':
-    characterClass.run(debug=True)
+    characterClass.run(host="localhost", port=8000, debug=True)
