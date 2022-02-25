@@ -15,7 +15,7 @@ class CharacterClass(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=False)
     klass = db.Column(db.String(144), unique=False)
-    clain = db.Column(db.String(144), unique=False)
+    clan = db.Column(db.String(144), unique=False)
     hp = db.Column(db.Integer, unique=False)
     mp = db.Column(db.Integer, unique=False)
     defence = db.Column(db.Integer, unique=False)
@@ -23,10 +23,10 @@ class CharacterClass(db.Model):
     attacks = db.Column(db.String(144), unique=False)
 
 
-    def __init__(self, name, klass, clain, hp, mp, defense, abilities, attacks):
+    def __init__(self, name, klass, clan, hp, mp, defense, abilities, attacks):
         self.name = name
         self.klass = klass
-        self.clain = clain
+        self.clan = clan
         self.hp = hp
         self.mp = mp
         self.defense = defense
@@ -36,7 +36,7 @@ class CharacterClass(db.Model):
 
 class CharacterClassSchema(ma.Schema):
     class Meta:
-        fields = ('name', 'klass', 'clain', 'hp', 'mp', 'defense', 'abilities', 'attacks')
+        fields = ('name', 'klass', 'clan', 'hp', 'mp', 'defense', 'abilities', 'attacks')
 
 
 character_class_schema = CharacterClassSchema()
@@ -47,14 +47,14 @@ character_classes_schema = CharacterClassSchema(many=True)
 def add_new_character():
     name = request.json['name']
     klass = request.json['klass']
-    clain = request.json['clain']
+    clan = request.json['clan']
     hp = request.json['hp']
     mp = request.json['mp']
     defense = request.json['defense']
     abilities = request.json['abilities']
     attacks = request.json['attacks']
 
-    new_character = CharacterClass(name, klass, clain, hp, mp, defense, abilities, attacks)
+    new_character = CharacterClass(name, klass, clan, hp, mp, defense, abilities, attacks)
 
     db.session.add(new_character)
     db.session.commit()

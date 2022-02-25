@@ -2,7 +2,7 @@ class CharacterTypeMage{
     constructor(name, startingHp = 500, startingMp = 100, startingDefence = 30, klass = 'Mage', clain = 'Red Mage', abilities = {abilityOne: 'Fire Ball', abilityTwo: ' Basic Hit'}){
         this.name = name,
         this.klass = klass,
-        this.clain = clain,
+        this.clan = clan,
         this.startingHp = startingHp,
         this.startingMp = startingMp,
         this.startingDefence = startingDefence,
@@ -13,7 +13,7 @@ class CharacterTypeMage{
         console.log(`
 Player Name: ${Object.values(this.name)}\n
 Class: ${this.klass}\n
-Clain: ${this.clain}\n
+Clan: ${this.clan}\n
 HP: ${this.startingHp}\n
 MP: ${this.startingMp}\n
 Defense: ${this.startingDefence}\n
